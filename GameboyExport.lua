@@ -62,10 +62,10 @@ local function exportFrame(useLookup, frm)
 
     local result = {}
 
-    for x = 0, sprite.width-1, 8 do
-        local column = {}
-        for y = 0, sprite.height-1, 8 do
-            local data = getTileData(img, x, y)
+    for y = 0, sprite.height-1, 8 do
+        local row = {}
+        for x = 0, sprite.width-1, 8 do
+            local data = string.upper(getTileData(img, x, y))
             local id = 0
             if useLookup then
                 id = spriteLookup[data]
@@ -81,12 +81,12 @@ local function exportFrame(useLookup, frm)
                 id = lastLookupId + 1
                 lastLookupId = id
             end
-            table.insert(column, id)
+            table.insert(row, id)
             if data ~= nil then
                 io.write(data)
             end
         end
-        table.insert(result, column)
+        table.insert(result, row)
     end
 
     return result
